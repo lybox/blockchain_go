@@ -1,6 +1,8 @@
 package main
 
+import "blockchain"
+
 func main() {
-	cli := CLI{}
+	cli := blockchain.CLI{}
 	cli.Run()
 }

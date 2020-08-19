@@ -1,4 +1,4 @@
-package main
+package blockchain
 
 import (
 	"flag"
@@ -13,13 +13,16 @@ type CLI struct{}
 
 func (cli *CLI) printUsage() {
 	fmt.Println("Usage:")
-	fmt.Println("  createblockchain -address ADDRESS - Create a blockchain and send genesis block reward to ADDRESS")
-	fmt.Println("  createwallet - Generates a new key-pair and saves it into the wallet file")
-	fmt.Println("  getbalance -address ADDRESS - Get balance of ADDRESS")
-	fmt.Println("  listaddresses - Lists all addresses from the wallet file")
-	fmt.Println("  printchain - Print all the blocks of the blockchain")
-	fmt.Println("  reindexutxo - Rebuilds the UTXO set")
+	fmt.Println("  createblockchain -address ADDRESS - Create a blockchain and send genesis block reward to ADDRESS") // 创建区块，并将奖励发放到对应的账号中
+	fmt.Println("  createwallet - Generates a new key-pair and saves it into the wallet file")                        // 创建钱包
+	fmt.Println("  getbalance -address ADDRESS - Get balance of ADDRESS")                                             // 查询余额
+	fmt.Println("  listaddresses - Lists all addresses from the wallet file")                                         // 打印全部钱包地址
+	fmt.Println("  printchain - Print all the blocks of the blockchain")                                              // 打印全部区块
+	fmt.Println("  reindexutxo - Rebuilds the UTXO set")                                                              // 重新遍历刷新UTXO
+
+	// 转账
 	fmt.Println("  send -from FROM -to TO -amount AMOUNT -mine - Send AMOUNT of coins from FROM address to TO. Mine on the same node, when -mine is set.")
+	// 挖矿
 	fmt.Println("  startnode -miner ADDRESS - Start a node with ID specified in NODE_ID env. var. -miner enables mining")
 }
 
@@ -112,6 +115,7 @@ func (cli *CLI) Run() {
 	}
 
 	if createBlockchainCmd.Parsed() {
+		fmt.Println(*createBlockchainAddress)
 		if *createBlockchainAddress == "" {
 			createBlockchainCmd.Usage()
 			os.Exit(1)
